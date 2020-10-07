@@ -7,8 +7,8 @@
  2. tutu.ru – сайт по поиску и продаже билетов на все виды транспорта.
 ## 2. Требования пользователя
 ### 2.1 Программные интерфейсы
- 3. ApacheTomcat  – контейнер сервлетов, реализующий спецификацию сервлетов, JavaServer Pages и JavaServer Faces и позволяющий запускать веб приложения.
- 4. PostgreSQL –  реляционная СУБД, необходимая для хранения данных пользователей, информации об авиакомпаниях и маршрутах авиарейсов.
+ 1. ApacheTomcat  – контейнер сервлетов, реализующий спецификацию сервлетов, JavaServer Pages и JavaServer Faces и позволяющий запускать веб приложения.
+ 2. PostgreSQL –  реляционная СУБД, необходимая для хранения данных пользователей, информации об авиакомпаниях и маршрутах авиарейсов.
 ### 2.2 Интерфейс пользователя
 Графический интерфейс проекта представлен с помощью мокапов [MainPage](https://github.com/RuslanPlusPlus/AviaTrader/blob/main/documentation/mockups/MainPage.pdf), [TicketsPage](https://github.com/RuslanPlusPlus/AviaTrader/blob/main/documentation/mockups/TicketsPage.pdf)  и [PersonalInfo](https://github.com/RuslanPlusPlus/AviaTrader/blob/main/documentation/mockups/PersonalInfo.pdf).
 ### 2.3 Характеристики пользователей
