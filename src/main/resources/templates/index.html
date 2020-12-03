@@ -38,10 +38,71 @@
 <br>
 
 <div class="container">
-    <h1>Welcome to AviaTrader!!! Choose your ticket</h1>
+    <h1>Welcome to AviaTrader!!!</h1>
     Username: <span sec:authentication="principal.username"> User</span>
 </div>
 
+<div class="container">
+<div class="row">
+    <div class="col-md-6 col-md-offset-3">
+        <h1>Chose ticket</h1>
+
+        <form th:action="@{/}" method="post" th:object="${ticket}">
+            <div class="form-group">
+                <label class="control-label" for="departureCity"> Departure city </label>
+                <input id="departureCity" class="form-control" th:field="*{departureCity}"
+                       required autofocus="autofocus"
+                list="departureCities_list"/>
+                <datalist id="departureCities_list">
+                    <option value="London"></option>
+                    <option value="Moscow"></option>
+                    <option value="Minsk"></option>
+                    <option value="Madrid"></option>
+                    <option value="Paris"></option>
+                    <option value="Rome"></option>
+                    <option value="New-York"></option>
+                </datalist>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label" for="arrivalCity"> Departure city </label>
+                <input id="arrivalCity" class="form-control" th:field="*{arrivalCity}"
+                       required autofocus="autofocus"
+                list="arrivalCities_list"/>
+                <datalist id="arrivalCities_list">
+                    <option value="London"></option>
+                    <option value="Moscow"></option>
+                    <option value="Minsk"></option>
+                    <option value="Madrid"></option>
+                    <option value="Paris"></option>
+                    <option value="Rome"></option>
+                    <option value="New-York"></option>
+                </datalist>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label" for="departureDate"> Departure date </label>
+                <input id="departureDate" class="form-control" th:field="*{departureDate}"
+                       required autofocus="autofocus" type="date"/>
+            </div>
+
+            <div class="form-group" th:field="*{flightClass}">
+                <label class="control-label"> Flight class </label>
+                <input type="radio" name="class" th:field="*{flightClass}"
+                       value="Business"> Business class
+                <input type="radio" name="class" th:field="*{flightClass}"
+                       value="Comfort"> Comfort class
+                <input type="radio" name="class" th:field="*{flightClass}"
+                       value="Economy"> Economy class
+            </div>
+
+            <div class="form-group">
+                <button type="submit" class="btn btn-success">Search</button>
+            </div>
+        </form>
+    </div>
+</div>
+</div>
 
 </body>
 </html>

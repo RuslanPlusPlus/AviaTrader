@@ -1,4 +1,6 @@
 package com.example.spring_security_app.model;
+import com.example.spring_security_app.web.dto.TicketDto;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -32,7 +34,7 @@ public class Ticket {
     @Column(name = "price")
     private int price;
 
-    //business, first, second, third
+    //Business, Comfort, Economy
     @Column(name = "class")
     private String flightClass;
 
@@ -101,6 +103,7 @@ public class Ticket {
                   LocalDateTime departureTime, LocalDateTime arrivalTime,
                   int price, String flightClass,
                   String isFree, String airCompany) {
+        super();
         this.departureCity = departureCity;
         this.arrivalCity = arrivalCity;
         this.departureDate = departureDate;
@@ -111,6 +114,21 @@ public class Ticket {
         this.flightClass = flightClass;
         this.isFree = isFree;
         this.airCompany = airCompany;
+    }
+
+    public boolean isSuitable(TicketDto ticketDto){
+        if(!this.isFree.equals("FREE"))
+            return false;
+        if (!this.departureCity.equals(ticketDto.getDepartureCity()))
+            return false;
+        if (!this.arrivalCity.equals(ticketDto.getArrivalCity()))
+            return false;
+        LocalDate date = LocalDate.parse(ticketDto.getDepartureDate());
+        if (!date.equals(this.departureDate))
+            return false;
+        if (!this.flightClass.equals(ticketDto.getFlightClass()))
+            return false;
+        return true;
     }
 
     public Ticket() {
