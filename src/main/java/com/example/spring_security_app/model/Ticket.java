@@ -1,20 +1,50 @@
 package com.example.spring_security_app.model;
-
-
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+@Entity
+@Table(name = "ticket")
 public class Ticket {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(name = "departure_city")
     private String departureCity;
+
+    @Column(name = "arrival_city")
     private String arrivalCity;
+
+    @Column(name = "departure_date")
     private LocalDate departureDate;
+
+    @Column(name = "arrival_date")
     private LocalDate arrivalDate;
+
+    @Column(name = "departure_time")
     private LocalDateTime departureTime;
+
+    @Column(name = "arrival_time")
     private LocalDateTime arrivalTime;
+
+    @Column(name = "price")
     private int price;
-    private int flight_class;
+
+    //business, first, second, third
+    @Column(name = "class")
+    private String flightClass;
+
+    //FREE, NOT_FREE
+    @Column(name = "is_free")
     private String isFree;
+
+    @Column(name = "air_company")
+    private String airCompany;
+
+    @ManyToOne()
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 
     public void setDepartureDate(LocalDate departureDate) {
@@ -57,12 +87,19 @@ public class Ticket {
         this.airCompany = airCompany;
     }
 
-    private String airCompany;
+
+    public String getFlightClass() {
+        return flightClass;
+    }
+
+    public void setFlightClass(String flightClass) {
+        this.flightClass = flightClass;
+    }
 
     public Ticket(String departureCity, String arrivalCity,
                   LocalDate departureDate, LocalDate arrivalDate,
                   LocalDateTime departureTime, LocalDateTime arrivalTime,
-                  int price, int flight_class,
+                  int price, String flightClass,
                   String isFree, String airCompany) {
         this.departureCity = departureCity;
         this.arrivalCity = arrivalCity;
@@ -71,7 +108,7 @@ public class Ticket {
         this.departureTime = departureTime;
         this.arrivalTime = arrivalTime;
         this.price = price;
-        this.flight_class = flight_class;
+        this.flightClass = flightClass;
         this.isFree = isFree;
         this.airCompany = airCompany;
     }
@@ -113,14 +150,6 @@ public class Ticket {
 
     public void setPrice(int price) {
         this.price = price;
-    }
-
-    public int getFlight_class() {
-        return flight_class;
-    }
-
-    public void setFlight_class(int flight_class) {
-        this.flight_class = flight_class;
     }
 
     public String getIsFree() {

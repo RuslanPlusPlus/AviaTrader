@@ -2,6 +2,7 @@ package com.example.spring_security_app.model;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Table(name =  "user", uniqueConstraints = @UniqueConstraint(columnNames = "email"))
@@ -20,8 +21,12 @@ public class User {
     @Column(name = "email")
     private String email;
 
+
     @Column(name = "password")
     private String password;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = false)
+    private List<Ticket> tickets;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
@@ -44,6 +49,18 @@ public class User {
         this.email = email;
         this.password = password;
         this.roles = roles;
+    }
+    public List<Ticket> getTickets() {
+        return tickets;
+    }
+
+    public void addTicket(Ticket ticket){
+        this.tickets.add(ticket);
+        ticket.setIsFree("NOT_FREE");
+    }
+
+    public void setTickets(List<Ticket> tickets) {
+        this.tickets = tickets;
     }
     public Long getId() {
         return id;
