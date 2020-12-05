@@ -45,6 +45,16 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
+    public User findUserByName(String username) {
+        return this.userRepository.findByEmail(username);
+    }
+
+    @Override
+    public void updateUser(User user) {
+        this.userRepository.save(user);
+    }
+
+    @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
         User user = userRepository.findByEmail(username);

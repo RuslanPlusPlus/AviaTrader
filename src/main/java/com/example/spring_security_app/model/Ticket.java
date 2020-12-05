@@ -117,6 +117,9 @@ public class Ticket {
     }
 
     public boolean isSuitable(TicketDto ticketDto){
+        if (ticketDto == null){
+            return false;
+        }
         if(!this.isFree.equals("FREE"))
             return false;
         if (!this.departureCity.equals(ticketDto.getDepartureCity()))

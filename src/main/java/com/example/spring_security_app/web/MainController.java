@@ -1,12 +1,17 @@
 package com.example.spring_security_app.web;
 
 import com.example.spring_security_app.model.Ticket;
+import com.example.spring_security_app.model.User;
 import com.example.spring_security_app.service.TicketService;
+import com.example.spring_security_app.service.UserService;
 import com.example.spring_security_app.web.dto.TicketDto;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.ArrayList;
@@ -17,9 +22,11 @@ public class MainController {
 
     private final TicketService ticketService;
     private TicketDto requestedTicket;
+    private final UserService userService;
 
-    public MainController(TicketService ticketService) {
+    public MainController(TicketService ticketService, UserService userService) {
         this.ticketService = ticketService;
+        this.userService = userService;
     }
 
     @GetMapping("/login")
@@ -59,20 +66,37 @@ public class MainController {
         return "tickets";
     }
 
-    /*@GetMapping("/order")
-    public String makeOrder(){
-        return "redirect:tickets";
-    }*/
+    @GetMapping("/order/{id}")
+    public String makeOrder(@AuthenticationPrincipal UserDetails userDetails, @PathVariable("id") Long id){
+        User user = this.userService.findUserByName(userDetails.getUsername());
+        Ticket ticket = this.ticketService.findById(id);
+        user.addTicket(ticket);
+        this.ticketService.updateTicket(ticket);
+        this.userService.updateUser(user);
+        return "redirect:/";
+    }
+
+    @GetMapping("/account")
+    public String getAccount(@AuthenticationPrincipal UserDetails userDetails, Model model){
+        User user = this.userService.findUserByName(userDetails.getUsername());
+        List<Ticket> tickets = user.getTickets();
+        List<TicketDto> ticketDtos = new ArrayList<>();
+        for (Ticket ticket: tickets){
+            ticketDtos.add(new TicketDto(ticket));
+        }
+        model.addAttribute("tr", ticketDtos);
+        return "account";
+    }
+
+    @GetMapping("/cancel-order/{id}")
+    public String cancelOrder(@AuthenticationPrincipal UserDetails userDetails, @PathVariable("id") Long id){
+        System.out.println("cancel-order method");
+        User user = this.userService.findUserByName(userDetails.getUsername());
+        Ticket ticket = this.ticketService.findById(id);
+        user.removeTicket(ticket);
+        this.userService.updateUser(user);
+        this.ticketService.updateTicket(ticket);
+        return "redirect:/account";
+    }
 
 }
-/*List<Ticket> tickets = this.ticketService.findAll();
-        List<TicketDto> ticketDtoList = null;
-        if (tickets != null){
-            ticketDtoList = new ArrayList<>();
-            for (Ticket ticket: tickets){
-                if (ticket.getIsFree().equals("FREE")){
-                    ticketDtoList.add(new TicketDto(ticket));
-                }
-            }
-        }
-        model.addAttribute("tickets", ticketDtoList);*/

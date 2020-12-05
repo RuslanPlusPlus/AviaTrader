@@ -13,7 +13,7 @@
 </head>
 <body>
 <!-- create navigation bar ( header) -->
-<nav class="navbar navbar-inverse navbar-fixed-top">
+<nav class="navbar navbar-inversed navbar-fixed-top" style="background-color: rgb(36, 201, 219)">
     <div class="container">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed"
@@ -23,12 +23,12 @@
                     class="icon-bar"></span> <span class="icon-bar"></span> <span
                     class="icon-bar"></span>
             </button>
-            <!--<a class="navbar-brand" href="#" th:href="@{/}">Registration and
-                Login Module</a>-->
+            <a class="navbar-brand" href="#" th:href="@{/}">AviaTrader</a>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-                <li sec:authorize="isAuthenticated()"><a th:href="@{/logout}">Logout</a></li>
+                <li class="nav-item active" sec:authorize="isAuthenticated()"><a class="nav-link" th:href="@{/logout}">Logout</a></li>
+                <li class="nav-item active" sec:authorize="isAuthenticated()"><a class="nav-link" th:href="@{/account}">Account</a></li>
             </ul>
         </div>
     </div>
@@ -38,7 +38,7 @@
 <br>
 
 <div class="container">
-    <h1>Welcome to AviaTrader!!!</h1>
+    <h1>Welcome to AviaTrader!!! Our web-service will help you to order an air-ticket</h1>
     Username: <span sec:authentication="principal.username"> User</span>
 </div>
 
@@ -61,6 +61,7 @@
                     <option value="Paris"></option>
                     <option value="Rome"></option>
                     <option value="New-York"></option>
+                    <option value="Berlin"></option>
                 </datalist>
             </div>
 
@@ -77,6 +78,7 @@
                     <option value="Paris"></option>
                     <option value="Rome"></option>
                     <option value="New-York"></option>
+                    <option value="Berlin"></option>
                 </datalist>
             </div>
 

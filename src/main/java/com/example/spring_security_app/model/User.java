@@ -56,7 +56,14 @@ public class User {
 
     public void addTicket(Ticket ticket){
         this.tickets.add(ticket);
+        ticket.setUser(this);
         ticket.setIsFree("NOT_FREE");
+    }
+
+    public void removeTicket(Ticket ticket){
+        this.tickets.remove(ticket);
+        ticket.setUser(null);
+        ticket.setIsFree("FREE");
     }
 
     public void setTickets(List<Ticket> tickets) {

@@ -24,4 +24,9 @@ public class TicketServiceImpl implements TicketService{
     public List<Ticket> findAll() {
         return this.ticketRepository.findAll();
     }
+
+    @Override
+    public void updateTicket(Ticket ticket) {
+        this.ticketRepository.save(ticket);
+    }
 }

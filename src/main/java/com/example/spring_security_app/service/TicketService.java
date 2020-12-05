@@ -7,4 +7,5 @@ import java.util.List;
 public interface TicketService {
     Ticket findById(Long id);
     List<Ticket> findAll();
+    void updateTicket(Ticket ticket);
 }

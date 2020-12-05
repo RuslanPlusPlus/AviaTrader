@@ -9,4 +9,6 @@ import java.util.List;
 public interface UserService extends UserDetailsService {
     User save(UserRegistrationDto registrationDto);
     List<User> findAll();
+    User findUserByName(String username);
+    void updateUser(User user);
 }
